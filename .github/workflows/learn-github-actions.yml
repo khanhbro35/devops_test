@@ -17,7 +17,9 @@ jobs:
       - run: echo "this is build stage"
   test:
     runs-on: ubuntu-latest
+    steps:
       - run: echo "this is test stage"
   deploy:
     runs-on: ubuntu-latest
+    steps:
       - run: echo "this is deploy stage"
