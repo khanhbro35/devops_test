@@ -8,6 +8,7 @@ on:
     paths-ignore:
       - '**/README.md'
       - 'ansible/*'
+      - 'images/*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,9 +23,6 @@ jobs:
     needs: build
     steps:
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       -
@@ -37,6 +35,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
+          context: .
+          file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/devops_test
   deploy:

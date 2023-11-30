@@ -3,7 +3,7 @@ volumes:
   db:
 services:
   books-app:
-    image: books
+    image: darkknight97/devops_test
     container_name: books-app
     ports:
      - 8080:5000

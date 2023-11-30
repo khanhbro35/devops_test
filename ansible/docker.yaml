@@ -37,3 +37,23 @@
       - containerd.io
       - docker-buildx-plugin
       - docker-compose-plugin
+
+  - name: Add the user to group docker-ce
+    ansible.builtin.user:
+      name: vagrant
+      group: docker
+      append: yes
+
+  - name: Run command newgrp
+    ansible.builtin.command:
+      cmd: newgrp docker
+  
+  - name: Create a mysql container
+    docker_container:
+      name: db
+      image: mysql
+      env:
+        MYSQL_DATABASE: abc
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: admin
+        MYSQL_RANDOM_ROOT_PASSWORD: '1'
