@@ -7,10 +7,10 @@ on:
       - main
     paths-ignore:
       - '**/README.md'
+      - 'ansible/*'
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4

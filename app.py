@@ -13,9 +13,9 @@ app.config["MYSQL_PASSWORD"] = os.environ.get("PASSWORD")
 app.config["MYSQL_DB"] = os.environ.get("DATABASE")
 mysql = MySQL(app)
 
-@app.route("/")
-def hello_world():
-    return render_template('index.html')
+# @app.route("/")
+# def hello_world():
+#     return render_template('index.html')
 
 
 @app.route("/get_books", methods=["GET"])
