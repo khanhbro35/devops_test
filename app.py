@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,jsonify
+from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv, find_dotenv
 from flask_mysqldb import MySQL
 import os
@@ -18,7 +18,7 @@ def hello_world():
     return render_template('index.html')
 
 
-@app.route("/get_books",methods=["GET"])
+@app.route("/get_books", methods=["GET"])
 def get_books():
     if request.method == "GET":
         cur = mysql.connection.cursor()
@@ -37,7 +37,7 @@ def get_books():
     else:
         return jsonify("method incorrect"),500
 
-@app.route("/create_book",methods=["POST"])
+@app.route("/create_book", methods=["POST"])
 def create_book():
     if request.method == "POST":
         data = request.get_json()
@@ -83,4 +83,4 @@ def delete_book():
           
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=5000,debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
