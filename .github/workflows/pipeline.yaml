@@ -1,7 +1,7 @@
 ---
 name: pipeline
 run-name: ${{ github.actor }} run pipeline
-on: 
+on:
   push:
     branches:
       - main
