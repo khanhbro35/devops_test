@@ -1,0 +1,25 @@
+version: "3"
+volumes:
+  db:
+services:
+  books-app:
+    image: books
+    container_name: books-app
+    ports:
+     - 8080:5000
+    environment:
+      HOST: db
+      USER: admin
+      PASSWORD: admin
+      DATABASE: books
+  db:
+    image: mysql
+    container_name: db
+    environment:
+      MYSQL_DATABASE: books
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
