@@ -14,7 +14,8 @@ Delete
 
 
 
-=======================================================
+=========================================================================================
+
 Tạo file inventory.txt để cấu hình ip, user_ssh, password
 
 chạy command "ansible-playbook -i inventory.txt ./ansible/docker.yaml".
