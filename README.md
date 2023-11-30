@@ -1,16 +1,16 @@
 Chạy command "docker compose up -d" để chạy API
 
 Create
-<img src="./images/create.png">
+<img src="./images/create.PNG">
 
 Get
-<img src="./images/get.png">
+<img src="./images/get.PNG">
 
 Put
-<img src="./images/put.png">
+<img src="./images/put.PNG">
 
 Delete
-<img src="./images/delete.png">
+<img src="./images/delete.PNG">
 
 
 
