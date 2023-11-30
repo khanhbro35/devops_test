@@ -28,7 +28,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   docker:
     runs-on: ubuntu-latest
-    nedds: build
+    needs: build
     steps:
       -
         name: Set up QEMU
@@ -50,6 +50,6 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/devops_test
   deploy:
     runs-on: ubuntu-latest
-    nedds: [build, docker]
+    needs: [build, docker]
     steps:
       - run: echo "this is deploy stage"
