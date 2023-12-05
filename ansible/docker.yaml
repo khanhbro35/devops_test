@@ -1,33 +1,32 @@
 ---
 - name: install docker
-  hosts: all
-  remote_user: vagrant
-  vars:
-    VERSION_CODENAME: $(. /etc/os-release && echo "$VERSION_CODENAME")
+  hosts: docker
   tasks:
   - name:  Update and upgrade apt packages
-    ansible.builtin.apt:
-    name: "*"
-    state: latest
-
-  - name: add key and repo
-     block:
-      - name: somerepo |no apt key
-        ansible.builtin.get_url:
-          url: https://download.docker.com/linux/ubuntu/gpg
-          dest: /etc/apt/keyrings/docker.gpg
-
-      - name: somerepo | apt source
-        ansible.builtin.apt_repository:
-          repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/myrepo.asc] https://download.example.com/linux/ubuntu {{ VERSION_CODENAME }} stable"
-          state: present
-
-  - name:  Update and upgrade apt packages
+    become: yes
     ansible.builtin.apt:
       name: "*"
       state: latest
 
-  - name: install 
+  - name: add key
+    become: yes
+    ansible.builtin.apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+  - name: add repo
+    become: yes
+    ansible.builtin.apt_repository:
+      repo: "deb https://download.docker.com/linux/ubuntu focal stable"
+      state: present
+
+  - name:  Update and upgrade apt packages
+    become: yes
+    ansible.builtin.apt:
+      name: "*"
+      state: latest
+
+  - name: install
+    become: yes
     ansible.builtin.apt:
       name: "{{ item }}"
       state: present
@@ -37,23 +36,10 @@
       - containerd.io
       - docker-buildx-plugin
       - docker-compose-plugin
-
+      
   - name: Add the user to group docker-ce
+    become: yes
     ansible.builtin.user:
-      name: vagrant
+      name: dark
       group: docker
       append: yes
-
-  - name: Run command newgrp
-    ansible.builtin.command:
-      cmd: newgrp docker
-  
-  - name: Create a mysql container
-    docker_container:
-      name: db
-      image: mysql
-      env:
-        MYSQL_DATABASE: abc
-        MYSQL_USER: admin
-        MYSQL_PASSWORD: admin
-        MYSQL_RANDOM_ROOT_PASSWORD: '1'
